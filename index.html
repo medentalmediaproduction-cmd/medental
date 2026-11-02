@@ -595,7 +595,8 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
 
 <script>
 /* ====== SETTINGS: edit these two lines ====== */
-const LEAD_EMAIL = "medentalmediaproduction@gmail.com";
+const LEAD_EMAIL = "medentalmediaproduction@gmail.com"; // shown to visitors if sending fails
+const LEAD_ENDPOINT = "/api/lead"; // server function that emails the lead through Resend
 const WHATSAPP_NUMBER = ""; // e.g. "201001234567" (country code, no + or spaces). Empty = buttons scroll to the form.
 /* ============================================ */
 
@@ -646,7 +647,7 @@ document.querySelectorAll("[data-plan]").forEach(b=>b.addEventListener("click",(
   [...sel.options].forEach(o=>{ if(o.text.startsWith(p)) sel.value=o.value; });
 }));
 
-// Lead form → email via FormSubmit (works once the site is hosted)
+// Lead form → /api/lead → Resend email (works on Vercel or Cloudflare Pages)
 (function(){
   const form=document.getElementById("lead-form"), status=document.getElementById("f-status"), btn=document.getElementById("f-submit");
   const show=(cls,html)=>{status.className="status "+cls;status.innerHTML=html;status.hidden=false;};
@@ -656,10 +657,9 @@ document.querySelectorAll("[data-plan]").forEach(b=>b.addEventListener("click",(
     if(!name||!/^\S+@\S+\.\S+$/.test(email)){show("err","Please add your name and a valid email so we can reply.");return;}
     btn.disabled=true; btn.firstChild.textContent="Sending… ";
     const data=Object.fromEntries(new FormData(form));
-    data._subject="New case enquiry: "+name+" ("+data.country+")";
-    data._template="table";
+    data.page=location.href;
     try{
-      const r=await fetch("https://formsubmit.co/ajax/"+LEAD_EMAIL,{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify(data)});
+      const r=await fetch(LEAD_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify(data)});
       if(!r.ok) throw new Error("status "+r.status);
       if(window.fbq) window.fbq("track","Lead");
       form.querySelectorAll("input,select,textarea").forEach(el=>{ if(el.name!=="_honey") el.disabled=true; });
