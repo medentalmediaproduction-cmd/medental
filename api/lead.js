@@ -4,7 +4,7 @@
 //   LEAD_TO_EMAIL    (optional, default medentalmediaproduction@gmail.com)
 //   LEAD_FROM_EMAIL  (optional, default "MEDENTAL Leads <onboarding@resend.dev>")
 const FIELDS = [
-  ["name", "Name"], ["email", "Email"], ["clinic", "Clinic"], ["country", "Country"],
+  ["name", "Name"], ["email", "Email"], ["phone", "Phone / WhatsApp"], ["clinic", "Clinic"], ["country", "Country"],
   ["specialty", "Specialty"], ["case_type", "Case type"], ["plan", "Interested in"],
   ["instagram", "Instagram"], ["message", "Message"], ["page", "Page"]
 ];

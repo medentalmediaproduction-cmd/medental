@@ -254,6 +254,7 @@ section{padding-block:96px}
 .form{border:1px solid var(--line);border-radius:22px;padding:32px;background:var(--panel);display:grid;grid-template-columns:1fr 1fr;gap:18px}
 .field{display:flex;flex-direction:column;gap:8px;min-width:0}
 .field.full{grid-column:1/-1}
+.field .hint{font-size:12.5px;color:var(--muted)}
 .field label{font-size:13px;font-weight:600;color:var(--muted)}
 .field input,.field select,.field textarea{font:500 15px var(--f-body);color:var(--fg);background:var(--ink);border:1px solid var(--line);border-radius:12px;padding:14px;width:100%}
 .field textarea{min-height:110px;resize:vertical}
@@ -561,6 +562,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
       <form class="form" id="lead-form" novalidate>
         <div class="field"><label for="f-name">Your name</label><input id="f-name" name="name" required autocomplete="name" placeholder="Dr. Jane Smith"></div>
         <div class="field"><label for="f-email">Email</label><input id="f-email" name="email" type="email" required autocomplete="email" placeholder="jane@clinic.com"></div>
+        <div class="field full"><label for="f-phone">Phone / WhatsApp <span style="font-weight:400">(optional)</span></label><input id="f-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="+1 555 123 4567"><span class="hint">Only used to send you case updates on WhatsApp. No sales calls, ever.</span></div>
         <div class="field"><label for="f-clinic">Clinic</label><input id="f-clinic" name="clinic" autocomplete="organization" placeholder="Smile Studio London"></div>
         <div class="field"><label for="f-country">Country</label>
           <select id="f-country" name="country">
